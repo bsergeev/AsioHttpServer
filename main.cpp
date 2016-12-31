@@ -11,7 +11,7 @@
 
 int main(int argc, char* argv[])
 {
-    // To enable detection of heap corruption and memory leaks, define FORMIT_HEAP_CHECKING.
+    // To enable detection of heap corruption and memory leaks, define HEAP_CHECKING.
     // Note: this will substantially slow down the Debug executable!
     //#define HEAP_CHECKING
     #if defined(_DEBUG) && defined(WIN32) && defined(HEAP_CHECKING)
