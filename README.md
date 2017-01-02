@@ -1,6 +1,10 @@
 # Simple asynchronous HTTP 1.0 server based on non-Boost ASIO  
-
-Based on Christopher M. Kohlhoff (chris@kohlhoff.com) ASIO C++11 http/server example:  
+This repo uses submodules, _asio_ and _catch_. The easiest way to clone it is:  
+```
+git clone --recursive https://github.com/bsergeev/AsioHttpServer.git
+```
+  
+The code is based on Christopher M. Kohlhoff (chris@kohlhoff.com) ASIO C++11 http/server example:  
   https://github.com/chriskohlhoff/asio/tree/master/asio/src/examples/cpp11/http/server
   
 Instead of the original ASIO, https://github.com/chriskohlhoff/asio.git, this repo uses my fork, https://github.com/bsergeev/asio.git, which includes a fix for a bug in ASIO, asio/include/asio/detail/consuming_buffers.hpp(104), fixed in my pull request:  
