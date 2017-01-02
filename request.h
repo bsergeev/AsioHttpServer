@@ -11,8 +11,8 @@ struct Request
 {
     std::string method;
     std::string uri;
-    int         http_version_major;
-    int         http_version_minor;
+    int         http_version_major = -1;
+    int         http_version_minor = -1;
 
     struct Header {
         // Headers are parsed char-by-char in RequestParser::consume(), thus this only constructor
