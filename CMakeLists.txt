@@ -9,7 +9,8 @@ if ((${CMAKE_SYSTEM_NAME} STREQUAL "Linux") AND (NOT ANDROID_ABI))
     set(LINUX true)
 endif()
 
-include_directories(${PROJECT_SOURCE_DIR}/../asio/asio/include)
+include_directories(${PROJECT_SOURCE_DIR}/3rdParty/asio/asio/include
+                    ${PROJECT_SOURCE_DIR}/3rdParty/catch/include)
 
 FILE(GLOB Source_Files "${PROJECT_SOURCE_DIR}/*.cpp")
 FILE(GLOB Header_Files "${PROJECT_SOURCE_DIR}/*.h")
