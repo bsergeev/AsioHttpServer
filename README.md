@@ -1,7 +1,7 @@
 # Asynchronous multithreaded HTTP 1.0 server based on non-Boost ASIO  
 This repo uses submodules, _asio_, _GSL_, and _catch_. The easiest way to clone it is:  
 ```
-git clone --recursive https://github.com/bsergeev/AsioHttpServer.git
+git clone --recursive https://git.autodesk.com/sergeeb/AsioMtHttpServer.git
 ```
   
 This code started with HTTP server example from Chapter 5 of _Boost.Asio C++ Network Programming Cookbook_ book by Dmytro Radchuk.    
