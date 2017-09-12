@@ -18,6 +18,7 @@
 #include <asio.hpp>
 
 #include <atomic>
+#include <iostream>
 #include <thread>
 #ifdef WIN32
 #include <crtdbg.h>
