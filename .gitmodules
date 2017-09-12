@@ -1,6 +1,9 @@
 [submodule "3rdParty/asio"]
 	path = 3rdParty/asio
 	url = https://github.com/chriskohlhoff/asio.git
+[submodule "3rdParty/GSL"]
+	path = 3rdParty/GSL
+	url = https://github.com/Microsoft/GSL.git
 [submodule "3rdParty/catch"]
 	path = 3rdParty/catch
 	url = https://github.com/philsquared/Catch.git
