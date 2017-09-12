@@ -41,10 +41,10 @@ Finally, the build script runs tests from _test_ folder.
 ## Troubleshooting
 On Linux, if building directly with CLang 4.0 succeeds:  
 ```  
-clang -std=c++14 -I3rdParty/asio/asio/include/ -I3rdParty/GSL/ -DASIO_STANDALONE=1 -DDO_LOG -stdlib=libc++ -lc++ -lc++abi -lpthread -o server src/*.cpp  
+clang -std=c++14 -I3rdParty/asio/asio/include/ -I3rdParty/GSL/include/ -DASIO_STANDALONE=1 -DDO_LOG -stdlib=libc++ -lc++ -lc++abi -lpthread -o server src/*.cpp  
 ```
-but CMake generated build fails, specify that CLang should be used instead of GCC by exporting the following variables (you may want to add them to your ~/.bashrc):
+but CMake generated build fails, specify that CLang should be used instead of GCC by executing:
 ```  
-export CC=clang  
-export CXX=clang++  
+sudo update-alternatives --config c++  
 ```
+and selecting clang++ from the list.
