@@ -16,8 +16,8 @@ include_directories(${PROJECT_SOURCE_DIR}/3rdParty/asio/asio/include
 
 FILE(GLOB Source_Files "${PROJECT_SOURCE_DIR}/src/*.cpp")
 if(WIN32 OR WIN64)
-    FILE(GLOB Debug_Files "${PROJECT_SOURCE_DIR}/src/*.natvis")
-	list(APPEND ${Source_Files} ${Debug_Files})
+	list(APPEND Source_Files "${PROJECT_SOURCE_DIR}/src/GSL.natvis")
+	message(">>>>>> ${Source_Files}")
 endif()	
 FILE(GLOB Header_Files "${PROJECT_SOURCE_DIR}/src/*.h")
 
