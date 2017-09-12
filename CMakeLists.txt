@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 2.8)
-project (AsioHttpSever)
+project (AsioHttpSever CXX)
 
 # Application --------------------------------------------------------
 add_definitions(-DNOMINMAX -DUNICODE -D_UNICODE -DASIO_STANDALONE=1)
@@ -11,10 +11,14 @@ if ((${CMAKE_SYSTEM_NAME} STREQUAL "Linux") AND (NOT ANDROID_ABI))
 endif()
 
 include_directories(${PROJECT_SOURCE_DIR}/3rdParty/asio/asio/include
-                    ${PROJECT_SOURCE_DIR}/3rdParty/GSL
+                    ${PROJECT_SOURCE_DIR}/3rdParty/GSL/include 
                     ${PROJECT_SOURCE_DIR}/3rdParty/catch/include)
 
 FILE(GLOB Source_Files "${PROJECT_SOURCE_DIR}/src/*.cpp")
+if(WIN32 OR WIN64)
+    FILE(GLOB Debug_Files "${PROJECT_SOURCE_DIR}/src/*.natvis")
+	list(APPEND ${Source_Files} ${Debug_Files})
+endif()	
 FILE(GLOB Header_Files "${PROJECT_SOURCE_DIR}/src/*.h")
 
 add_executable(server ${Source_Files} ${Header_Files})
