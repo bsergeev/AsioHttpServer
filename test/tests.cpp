@@ -1,13 +1,22 @@
 #include "../src/connection.h"
+#include "../src/constants.h"
+#include "../src/evaluator.h"
 
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 
+#include <map>
 #include <sstream>
+
+using std::string;
+
+#ifdef DO_LOG
+std::mutex gMutex;
+#endif
 
 SCENARIO("Parsing HTTP request", "[request]"){
     GIVEN("a request"){
-        const std::string s = "GET / HTTP/1.1\r\n"
+        const string s = "GET / HTTP/1.1\r\n"
             "Host: localhost:8080\r\n"
             "Connection: keep-alive\r\n"
             "Cache-Control: max-age=0\r\n"
@@ -19,7 +28,7 @@ SCENARIO("Parsing HTTP request", "[request]"){
             "\r\n";
         WHEN("parsed"){
             std::stringstream req_stream(s);
-            std::string method, resource, http_version;
+            string method, resource, http_version;
             std::tie   (method, resource, http_version) = Connection::ParseRequestLine(req_stream);
             THEN("Method should be GET") {
                 REQUIRE(method.compare("GET") == 0);
@@ -30,7 +39,7 @@ SCENARIO("Parsing HTTP request", "[request]"){
             THEN("HTTP version should be 1.1") {
                 REQUIRE(http_version.compare("HTTP/1.1") == 0);
             }
-            const std::map<std::string, std::string> headers = Connection::ParseRequestHeaders(req_stream);
+            const std::map<string, string> headers = Connection::ParseRequestHeaders(req_stream);
             THEN("There should be 8 request headers") {
                 REQUIRE(headers.size() == 8);
                 REQUIRE(headers.count("host") == 1);
@@ -46,3 +55,22 @@ SCENARIO("Parsing HTTP request", "[request]"){
     }
 }
 
+SCENARIO("Generating HTTP response", "[response]")
+{
+    GIVEN("a request") {
+        const string                   requested_resource;
+        const std::map<string, string> request_headers;
+        const string                   request_body;
+        WHEN("generate a response") {
+            http::StatusCode http_code = http::StatusCode::ServerError;
+            string           reply;
+            std::tie(http_code, reply) = purpose::Evaluate(requested_resource, request_headers, request_body);
+            THEN("HTTP code should be 200") {
+                REQUIRE(http_code == http::StatusCode::OK);
+            }
+            THEN("reply should be non-empty") {
+                REQUIRE(reply.length() > 0);
+            }
+        }
+    }
+}

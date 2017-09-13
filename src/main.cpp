@@ -4,13 +4,8 @@
 // `Boost.Asio C++ Network Programming Cookbook` book by Dmytro Radchuk.
 // It was converted from Boost ASIO to C++11 ASIO and extensively refactored.
 
-// To make this server do whatever task you need it to, add code to 
-// Connection::processRequest.
-
-// To build the server with CLang (without running CMake, so that Windows and
-// Linux build can coexist), execute the following from the root of the repo:
-// clang -std=c++14 -I3rdParty/asio/asio/include/ -I3rdParty/GSL/ -DASIO_STANDALONE=1 -DDO_LOG -stdlib=libc++ -lc++ -lc++abi -lpthread -o build/server src/*.cpp
-
+// To make this server do something useful, add code to Connection::processRequest 
+// and/or purpose::Evaluate.
 
 #include "connection.h"
 #include "log.h"
@@ -20,8 +15,8 @@
 #include <atomic>
 #include <iostream>
 #include <thread>
-#ifdef WIN32
-#include <crtdbg.h>
+#if defined(_DEBUG) && defined(WIN32)
+  #include <crtdbg.h>
 #endif
 
 using namespace std::string_literals;
@@ -63,7 +58,9 @@ private:
         m_acceptor.async_accept(*sock.get(),
             [this, sock](const std::error_code& e) {
                 if (!e) {
-                    // The new Connection object will destroy itself in Connection::processRequest()
+                    // The new Connection object will destroy itself in 
+                    // Connection::ProcessRequest()
+                    //   Connection::sendResponse()
                     (new Connection(sock))->ProcessRequest();
                 } else {
                     LOG("Error occurred[4]: "<< e.value() <<", \""<< e.message() <<"\"\n");
