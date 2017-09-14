@@ -54,7 +54,7 @@ private:
     //            to start waiting for the next HTTP request. Slick!
     void initAccept() 
     {
-        std::shared_ptr<asio::ip::tcp::socket> sock(new asio::ip::tcp::socket(m_ioService));
+        auto sock = std::make_shared<asio::ip::tcp::socket>(m_ioService);
         m_acceptor.async_accept(*sock.get(),
             [this, sock](const std::error_code& e) {
                 if (!e) {
@@ -91,7 +91,7 @@ public:
         LOG("Starting "<< thread_pool_size <<" worker threads\n");
         m_threadPool.reserve(thread_pool_size);
         for (size_t i = 0; i < thread_pool_size; ++i) {
-            m_threadPool.push_back(std::make_unique<std::thread>([this](){ m_ioService.run(); }));
+            m_threadPool.emplace_back(new std::thread([this](){ m_ioService.run(); }));
         }
         m_acceptor->Start();
     }
