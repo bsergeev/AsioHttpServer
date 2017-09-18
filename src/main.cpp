@@ -13,6 +13,7 @@
 #include <asio.hpp>
 
 #include <atomic>
+#include <cstdlib>
 #include <iostream>
 #include <thread>
 #if defined(_DEBUG) && defined(WIN32)
@@ -113,7 +114,8 @@ private:
 }; // class Server
 //------------------------------------------------------------------------------
 #ifndef TESTING
-int main(int, char*[])
+// You can pass the port number in the command line
+int main(int numArgs, char** args)
 {
     // To enable detection of heap corruption and memory leaks, define HEAP_CHECKING.
     // Note: this will substantially slow down the Debug executable!
@@ -122,7 +124,16 @@ int main(int, char*[])
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF | _CRTDBG_CHECK_ALWAYS_DF);
     #endif
 
-    constexpr unsigned short port_num = 8080;
+    unsigned short port_num = 8080;
+    if (numArgs > 1) {
+        const unsigned long num = std::strtoul(args[1], nullptr, 10);
+        if (num <= 65535) {
+            port_num = 0xFFFF & num;
+        } else {
+            std::cerr << "Invalid port number, " << args[1] << ", is ignored" << std::endl;
+        }
+    }
+
     try {
         const size_t hardware_threads = std::thread::hardware_concurrency();
         const size_t thread_pool_size = (hardware_threads)? 2*hardware_threads : 2;
