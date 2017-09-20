@@ -8,8 +8,9 @@ echo Building configuration: %config%
 
 mkdir build
 cd build
-cmake -G "Visual Studio 14 2015 Win64" ..
-call "%VS140COMNTOOLS%..\..\VC\vcvarsall.bat" x64
+cmake -G "Visual Studio 15 2017 Win64" ..
+
+call "%ProgramFiles(x86)%\Microsoft Visual Studio\2017\Professional\VC\Auxiliary\Build\vcvarsall.bat" x64
 msbuild AsioHttpSever.sln /p:Configuration=%config%
 cd ..
 

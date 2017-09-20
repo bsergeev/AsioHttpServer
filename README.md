@@ -25,7 +25,7 @@ mkdir build
 cd build
 cmake -G "generator" ..
 ```
-where `"generator"` is either `"Visual Studio 14 2015 Win64"` or `"Unix Makefiles"`.  
+where `"generator"` is either `"Visual Studio 15 2017 Win64"` or `"Unix Makefiles"`.  
 Then, *on Windows*, the solution is built from VS2015 x64 command line:  
 ```  
 msbuild AsioHttpSever.sln  

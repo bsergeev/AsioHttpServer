@@ -113,7 +113,7 @@ std::map<std::string, std::string> Connection::ParseRequestHeaders(std::istream&
     while (!request_stream.eof()) {
         std::string  header_name;
         std::getline(request_stream, header_name, ':');
-        std::transform(header_name.begin(), header_name.end(), header_name.begin(), ::tolower);
+        std::for_each(header_name.begin(), header_name.end(), [](char& c){ c = static_cast<char>(::tolower(c)); });
         if (!request_stream.eof()) {
             std::string  header_value;
             std::getline(request_stream, header_value, '\r');
