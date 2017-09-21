@@ -17,7 +17,7 @@ curl --header "custom: header" --upload-file file_name http://127.0.0.1:8080 -v
 ```
 
 ## Building on Windows and Linux
-To build the server, run `build.bat` (with optional configuration, Debug or Release) on Windows or `bash.sh [Release]` on Linux.  
+To build the server, run `build.bat` (with optional configuration, Debug or Release) on Windows or `bash.sh [Release]` on Linux or Windows' Git Bash.  
   
 These scripts perform out-of-source build by executing the following commands from the source directory:
 ```

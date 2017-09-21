@@ -1,4 +1,6 @@
 build/
+build.Windows/
+build.Linux/
 .vs/
 .vscode/
 packages/
